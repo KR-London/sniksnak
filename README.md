@@ -1,4 +1,4 @@
-# TikTok
+# myTikTok
 A native iOS mobile application that copies the actual TikTok(https://www.tiktok.com) mechanics - Swipe top/down to play live streamed videos.It includes 20  streamed videos are fed from a Ruby Web Service located at: https://gist.github.com/invisibleBully/5bad78b6c6093b20a2945b694a5d2ff0
 
 
