@@ -14,7 +14,19 @@ import Foundation
 struct Feed: Decodable {
     
     let id: Int
-    let url: URL
+    let url: URL?
+    let path: savedContent?
    
     
+}
+
+struct savedContent: Codable{
+    var name: String?
+    var format: String?
+    
+    init(filename: String){
+        let components = filename.split(separator: ".")
+        name = String(components[0])
+        format = String(components[1])
+    }
 }

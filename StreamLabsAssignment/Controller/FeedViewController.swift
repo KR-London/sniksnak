@@ -55,8 +55,19 @@ class FeedViewController: AVPlayerViewController, StoryboardScene {
     
     
     fileprivate func initializeFeed() {
-        let url = feed.url
-        player = AVPlayer(url: url)
+       // let url = feed.url
+        let input = feed.path!
+        guard let path = Bundle.main.path(forResource: input.name, ofType:input.format) else {
+            debugPrint("video not found")
+            return
+        }
+        
+//        guard let path = Bundle.main.path(forResource: "vid1", ofType: "mp4") else {
+//                  debugPrint("video not found")
+//                  return
+//              }
+//        
+        player = AVPlayer(url: URL(fileURLWithPath: path))
         isPlaying ? play() : nil
     }
 }
