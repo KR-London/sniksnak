@@ -16,7 +16,7 @@ struct Feed: Decodable {
     let id: Int
     let url: URL?
     let path: savedContent?
-   
+    let text: String?
     
 }
 
