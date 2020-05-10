@@ -110,32 +110,38 @@ extension FeedPagePresenter: FeedFetchDelegate {
         //let docsPath = Bundle.main.resourcePath!
         var docsPath = Bundle.main.path(forResource: "vid1", ofType: ".MOV")
         docsPath = String((docsPath?.dropLast(8))!)
-        print(docsPath)
         let fileManager = FileManager.default
 
         var list = [Feed]()
         do {
             let docsArray = try fileManager.contentsOfDirectory(atPath: docsPath!).filter({$0.hasSuffix(".MP4")||$0.hasSuffix(".MOV")})
+            let gifArray = try fileManager.contentsOfDirectory(atPath: docsPath!).filter({$0.hasSuffix(".gif")})
+            let soundsArray = try fileManager.contentsOfDirectory(atPath: docsPath!).filter({$0.hasSuffix(".mp3")})
+            
+            let onboarding = Feed(id: 0, url: nil, path: savedContent(filename: "onboardingBackground.mov") , text: "Swipe Up To SnikSnak!", gif: nil, sound: nil)
+            list.append(onboarding)
                
-            for i in 0...15{
+            for i in 1...15{
                 /// later include remote video and sti;; images
-                let type = ["localVideo", "text"].randomElement()
-                print(type)
-
+                
+                
+               let type = ["localVideo", "localVideo", "gif", "gif", "text"].randomElement()
+                //let type = "gif"
                 switch type{
                     case "localVideo":
-                        let vid = Feed(id: i, url: nil, path: savedContent(filename: docsArray.randomElement()!), text: nil)
+                        let vid = Feed(id: i, url: nil, path: savedContent(filename: docsArray.randomElement()!), text: nil, gif: nil, sound: nil)
                         list.append(vid)
                     case "text":
-                        let vid = Feed(id: i, url: nil, path: savedContent(filename: ["bac1.mp4", "bac2.mov","background3.mp4", "bac4.mp4", "bac3.mp4"].randomElement()!), text: phrases.randomElement())
+                        let vid = Feed(id: i, url: nil, path: savedContent(filename: ["bac1.mp4", "bac2.mov","background3.mp4", "bac4.mp4", "bac3.mp4"].randomElement()!), text: phrases.randomElement(), gif: nil, sound: nil)
+                        list.append(vid)
+                    case "gif":
+                        let vid = Feed(id: i, url: nil, path: nil, text: nil, gif: gifArray.randomElement()!, sound: soundsArray.randomElement())
                         list.append(vid)
                     default: break // add a placeholder here
                 }
-                
-               /// let vid = Feed(id: i, url: nil, path: savedContent(filename: docsArray.randomElement()!))
-                //let vid = Feed(id: i, url: nil, path: savedContent(filename: ["bac1.mp4", "bac2.mov","background3.mp4", "bac4.mp4", "bac3.mp4"].randomElement()! ))
-               // list.append(vid)
+
             }
+            print(list)
         }
         catch{
                 print("Local video loading failed")
